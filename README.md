@@ -1,19 +1,6 @@
-# BANK TRANSACTION FRAUD ANALYSIS
+# BANK TRANSACTION FRAUD DETECTION
 
-## Project Overview
-This project analyzes 1 million bank transactions to identify fraud patterns across multiple dimensions including geography, merchant category, payment method, device type, time of day among others, Using Powerful tools like Excel, Power BI, Python and SQL SSMS Server.
-
-## Tools Used
-- **Excel** — Data cleaning, Data exploration, Pivot Tables, Dashboard
-- **Power BI** — Interactive dashboard with KPI cards
-- **SQL (SSMS)** — Data querying and aggregation
-- **Python** — Data analysis and visualization (Pandas, Matplotlib, Seaborn)
-
-## Dataset
-- The original dataset contains 1 million financial transaction records. Due to GitHub file size limitations, the raw dataset is provided through the external link below:
-Source: [Kaggle — Bank Transaction Fraud Dataset](https://www.kaggle.com/datasets/nafiulislam490/bank-transaction-fraud-detection-dataset)
-- 1,000,000 rows
-- Features include: transaction amount, country, merchant category, payment method, device type, hour of day, fraud flag, tranasaction id, transaction date, is weekend, city ETC
+Fraud's rare, but it's not random. This one's about finding where it actually clusters — which merchants, which hours, which countries — using a dataset of 1 million bank transactions.
 
 ## Key Metrics
 | Metric | Value |
@@ -24,12 +11,40 @@ Source: [Kaggle — Bank Transaction Fraud Dataset](https://www.kaggle.com/datas
 | Total Fraud Amount | $12.60M |
 | Avg Transaction Amount | $204.72 |
 
-## Key Insights
-- **USA, India and UK** are the top 3 countries with the highest fraud cases
-- **Jewelry and ATM Withdrawal** are the most targeted merchant categories
-- **Credit Card and Debit Card** are the most exploited payment methods
-- **Mobile devices** account for the highest number of fraudulent transactions followed by desktop
-- Fraud activity **spikes sharply at the end of the day** based on hour of day analysis
+## The data
+
+1 million transactions, flagged as fraud (1) or legit (0), with details on merchant category, payment method, device type, country, and the hour the transaction happened. Same drill as the others — Excel, Power BI, SQL, Python, all four telling the same story.
+
+This was the biggest dataset of the five, so a lot of the actual challenge was technical, not analytical: the SSMS import wizard couldn't handle a file this size, so the SQL step had to go through Python/SQLAlchemy instead. GitHub also choked on the raw Excel and Power BI file sizes, which meant finding workarounds just to get everything uploaded.
+
+## What the data actually says
+
+- **Only 5.53% of transactions are fraud** — 55K out of 1M. Small percentage, but 55,000 is still a lot of actual incidents, and 12.6M in total fraud value.
+- **Jewelry, ATM withdrawals, and crypto exchanges are where fraud concentrates.** Those three categories are miles ahead of everything else — Electronics, Fuel, Education, Healthcare and the rest all sit at a fraction of the top three.
+- **Fraud has a clear time pattern.** It's elevated for most of the day, then drops off sharply around hour 9 and stays low until it spikes back up late, around hour 20+. Fraud isn't happening randomly around the clock — it's concentrated in specific windows.
+- **The USA has by far the most fraud cases**, more than double the next country (India), followed by UK, Brazil, Germany, and a long tail of others.
+
+## So what should a bank actually do about it?
+
+- **Put tighter monitoring on jewelry, ATM, and crypto transactions specifically.** These three categories account for a disproportionate share of fraud — flagging rules or extra verification steps targeted at just these would catch more fraud without slowing down every other transaction type.
+- **Staff fraud review teams around the actual fraud clock, not a flat 24-hour schedule.** Since fraud spikes at specific hours and drops at others, review capacity should scale with that pattern instead of being spread evenly.
+- **USA and India need dedicated fraud desks, not a one-size-fits-all global process.** The concentration in a couple of countries suggests region-specific fraud tactics that a generic policy won't catch.
+- **Use payment method and device type as risk signals, not just categories to report on.** Since these are already broken out in the dashboard, they're a natural next layer for a fraud-scoring model — certain combinations are likely much riskier than others.
+
+## What I built it in, and why four times
+
+**Excel** — cleaned and explored the raw data, first pass at the KPIs.
+**Power BI** — the main dashboard. Fraud vs Legitimate breakdown, merchant category, hour-of-day trend, country breakdown as charts; Payment Method and Device Type as slicers so you can filter the whole dashboard down to a specific method or device.
+**SQL** — same KPIs as queries. Had to load the data via Python/SQLAlchemy since the SSMS import wizard couldn't handle a dataset this size.
+**Python** — same analysis again in a notebook, pandas and matplotlib doing the work.
+
+Same reasoning as every project in this portfolio — doing it in four tools isn't about needing four dashboards, it's proving the underlying logic holds up no matter which tool's doing the calculating.
+ 
+## Dataset
+- The original dataset contains 1 million financial transaction records. Due to GitHub file size limitations, the raw dataset is provided through the external link below:
+Source: [Kaggle — Bank Transaction Fraud Dataset](https://www.kaggle.com/datasets/nafiulislam490/bank-transaction-fraud-detection-dataset)
+- 1,000,000 rows
+- Features include: transaction amount, country, merchant category, payment method, device type, hour of day, fraud flag, tranasaction id, transaction date, is weekend, city ETC
 
 
 ## Files in Repository
